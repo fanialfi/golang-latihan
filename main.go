@@ -1,56 +1,48 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
+
+type Employee struct {
+	id       int
+	name     string
+	position string
+	gaji     float64
+	bonus    float64
+}
+
+func displayEmploye(employe Employee) {
+	fmt.Printf("nama\t\t: %s\nposition\t: %s\ngaji\t\t: %.3f\nbonus\t\t: %.3f\n", employe.name, employe.position, employe.gaji, employe.bonus)
+}
+
+func returnBonus(employee *Employee, bonus float64) {
+	employee.bonus = bonus
+}
 
 func main() {
-	// mencari bilangan prima
-	fmt.Printf("masukkan bilangan yang akan di cek : ")
-	var bilangan int
-	fmt.Scan(&bilangan)
-	var result = cekBilanganPrima(bilangan)
-	fmt.Println("hasil", result)
-
-	// hitung isi bola
-	var r float64
-
-	fmt.Printf("masukkan jari jari : ")
-	fmt.Scan(&r)
-
-	var isiBola = hitungIsiBola(r)
-
-	fmt.Printf("isi bola adalah %.3f\n", isiBola)
-
-	fmt.Printf("masukkan suhu dalam satuan celcius : ")
-	var celcius float64
-	fmt.Scan(&celcius)
-
-	var fahrenheit = konversiSuhu(celcius, false)
-	fmt.Printf("konversi suhu dari %.2f celcius ke fahrenheit : %.2f\n", celcius, fahrenheit)
-}
-
-func konversiSuhu(s float64, bol bool) float64 {
-	var a float64 = (s * (9.0 / 5.0)) + float64(32)
-
-	return a
-}
-
-func hitungIsiBola(r float64) float64 {
-	var x = 4 / 3
-
-	pi := float64(math.Pi)
-	return float64(x) * pi * float64(math.Pow(r, 3))
-}
-
-func cekBilanganPrima(number int) int {
-	var prima int
-	for i := 2; i <= number; i++ {
-		if isOne := float64(number) / float64(i); isOne == 1.0 {
-			fmt.Printf("tipe %T value %f\n", isOne, isOne)
-			prima = number
-		}
+	var employe1 = Employee{
+		id:       1,
+		name:     "employe 1",
+		position: "back-end developer",
+		gaji:     5000000.00,
+		bonus:    0.0,
 	}
-	return prima
+	var employe2 = Employee{
+		id:       2,
+		name:     "employe 2",
+		position: "back-end enginer",
+		gaji:     12000000.00,
+		bonus:    0.0,
+	}
+	fmt.Printf("deskripsi employe :\n\n")
+	displayEmploye(employe1)
+	fmt.Println()
+	displayEmploye(employe2)
+
+	returnBonus(&employe1, 1000000.0)
+	returnBonus(&employe2, 2000000.0)
+
+	fmt.Printf("\ndeskripsi employee setelah menerima bonus :\n")
+	displayEmploye(employe1)
+	fmt.Println()
+	displayEmploye(employe2)
 }
